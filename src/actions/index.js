@@ -3,9 +3,9 @@ import axios from 'axios';
 
 // we'll need to create 3 different action types here.
 // one for fetching, one for success and one for failure
-export const FETCHING = 'FETCHING'
-export const SUCCESS = 'SUCCESS'
-export const FAILURE = 'FAILURE'
+export const CHARACTER_FETCHING = 'CHARACTER_FETCHING'
+export const CHARACTER_SUCCESS = 'CHARACTER_SUCCESS'
+export const CHARACTER_FAILURE = 'CHARACTER_FAILURE'
 
 // our action creator will be a function that returns a function
 // the url to fetch characters from is `https://swapi.co/api/people/`
@@ -13,14 +13,16 @@ export const FAILURE = 'FAILURE'
 
 export function getCharacters() {
     return (dispatch) => {
-        dispatch({ type: FETCHING })
+        dispatch({ type: CHARACTER_FETCHING })
 
         axios.get('https://swapi.co/api/people')
             .then((res) => {
-                dispatch({ type: SUCCESS, payload: res.data})
+                console.log(res)
+                dispatch({ type: CHARACTER_SUCCESS, payload: res.data })
             })
             .catch((err) => {
-                dispatch({ type: FAILURE, payload: err.response.data})
+                console.log(err)
+                dispatch({ type: CHARACTER_FAILURE, payload: err.response.data})
             })
     }
 }
